@@ -21,5 +21,6 @@ try {
     $db->commit();
 } catch (Exception $e) {
     $db->rollBack();
+    throw $e;
 }
 ```
