@@ -2,6 +2,9 @@
 
 Example of nested transactions use:
 ```php
+
+$db = new PdoWithNestedTransactions(/*credentials here*/);
+
 try {
     $db->beginTransaction();
 
