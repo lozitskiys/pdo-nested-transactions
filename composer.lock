@@ -4,11 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "autoload": {
-        "psr-4": {
-            "PdoWithNestedTransactions\\": "src/"
-        }
-    },
     "content-hash": "c88044d812c7b60f2947c5f6b6e61cab",
     "packages": [],
     "packages-dev": [],
