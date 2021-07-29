@@ -1,0 +1,12 @@
+{
+    "name": "lozitskiys/pdo-nested-transactions",
+    "description": "Support for nested transactions in PDO",
+    "type": "library",
+    "authors": [
+        {
+            "name": "lozitskiys",
+            "email": "lozitskiys@gmail.com"
+        }
+    ],
+    "require": {}
+}
