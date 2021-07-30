@@ -27,3 +27,8 @@ try {
     throw $e;
 }
 ```
+
+# How to install
+```
+composer require lozitskiys/pdo-nested-transactions
+```
