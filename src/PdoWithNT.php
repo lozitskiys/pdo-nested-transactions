@@ -1,6 +1,6 @@
 <?php
 
-namespace PdoWithNestedTransactions;
+namespace PdoWithNT;
 
 use Exception;
 use PDO;
@@ -10,7 +10,7 @@ use PDO;
  *
  * @author Stas Lozitskiy
  */
-class PdoWithNestedTransactions extends PDO
+class PdoWithNT extends PDO
 {
     protected $transLevel = 0;
 
@@ -45,7 +45,7 @@ class PdoWithNestedTransactions extends PDO
             if ($this->transLevel == 0) {
                 parent::rollBack();
             } else {
-                $this->exec("ROLLBACK TO SAVEPOINT LEVEL{$this->transLevel}");
+                $this->exec("ROLLBACK TO SAVEPOINT LEVEL$this->transLevel");
             }
         } catch (Exception $ex) {
             /** Misuse of transactions example:

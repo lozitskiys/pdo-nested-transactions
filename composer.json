@@ -8,10 +8,12 @@
             "email": "lozitskiys@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "ext-pdo": "*"
+    },
     "autoload": {
         "psr-4": {
-            "PdoWithNestedTransactions\\": "src/"
+            "PdoWithNT\\": "src/"
         }
     }
 }
