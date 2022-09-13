@@ -12,42 +12,46 @@ use PDO;
  */
 class PdoWithNT extends PDO
 {
-    protected $transLevel = 0;
+    protected int $transLevel = 0;
 
-    public function beginTransaction()
+    public function beginTransaction(): bool
     {
         if ($this->transLevel == 0) {
-            parent::beginTransaction();
+            $res = parent::beginTransaction();
         } else {
-            $this->exec("SAVEPOINT LEVEL$this->transLevel");
+            $res = (bool)$this->exec("SAVEPOINT LEVEL$this->transLevel");
         }
         $this->transLevel++;
+
+        return $res;
     }
 
-    public function commit()
+    public function commit(): bool
     {
         try {
             $this->transLevel--;
             if ($this->transLevel == 0) {
-                parent::commit();
+                $res = parent::commit();
             } else {
-                $this->exec("RELEASE SAVEPOINT LEVEL$this->transLevel");
+                $res = (bool)$this->exec("RELEASE SAVEPOINT LEVEL$this->transLevel");
             }
         } catch (Exception $ex) {
             throw new Exception("Probably transaction already closed", 0, $ex);
         }
+
+        return $res;
     }
 
-    public function rollBack(Exception $exSrc = null)
+    public function rollBack(Exception $exSrc = null): bool
     {
         try {
             $this->transLevel--;
             if ($this->transLevel == 0) {
-                parent::rollBack();
+                $res = parent::rollBack();
             } else {
-                $this->exec("ROLLBACK TO SAVEPOINT LEVEL$this->transLevel");
+                $res = (bool)$this->exec("ROLLBACK TO SAVEPOINT LEVEL$this->transLevel");
             }
-        } catch (Exception $ex) {
+        } catch (Exception) {
             /** Misuse of transactions example:
              *
              * try {
@@ -72,5 +76,7 @@ class PdoWithNT extends PDO
 
             throw new Exception($msg, 0, $exSrc);
         }
+
+        return $res;
     }
 }
